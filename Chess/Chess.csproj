@@ -41,11 +41,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChessFigure.cs" />
+    <Compile Include="Models\Bishop.cs" />
+    <Compile Include="Models\GameCoord.cs" />
+    <Compile Include="Models\King.cs" />
+    <Compile Include="Models\Knight.cs" />
+    <Compile Include="Models\Pawn.cs" />
+    <Compile Include="Models\Queen.cs" />
+    <Compile Include="Models\Rook.cs" />
+    <Compile Include="Models\FigureType.cs" />
     <Compile Include="TestClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
