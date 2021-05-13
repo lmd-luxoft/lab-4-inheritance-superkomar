@@ -1,107 +1,33 @@
-﻿
-using System;
+﻿using System;
+
+using Chess.Models;
 
 namespace Chess
 {
-    public class ChessFigure
+
+    internal abstract class ChessFigure
     {
-        private Type type;
-        private string currentCoord;
+        protected readonly string _currentCoord;
 
-        public ChessFigure(Type type, string currentCoord)
+        public ChessFigure(string currentCoord)
         {
-            this.type = type;
-            this.currentCoord = currentCoord;
+            _currentCoord = currentCoord;
         }
 
-        public enum Type
+        internal abstract bool Move(string nextCoord);
+
+        internal static ChessFigure ConstructByType(FigureType type, string startCoord)
         {
-            ROOK,
-            KNIGHT,
-            BISHOP,
-            PAWN,
-            KING,
-            QUEEN
+            switch (type)
+            {
+                case FigureType.QUEEN:  return new Queen(startCoord);
+                case FigureType.ROOK:   return new Rook(startCoord);
+                case FigureType.KNIGHT: return new Knight(startCoord);
+                case FigureType.BISHOP: return new Bishop(startCoord);
+                case FigureType.PAWN:   return new Pawn(startCoord);
+                case FigureType.KING:   return new King(startCoord);
+                default: throw new NotSupportedException();
+            }
         }
-
-        internal bool Move(string nextCoord)
-        {
-			if (type == Type.PAWN)
-			{
-				if (nextCoord[0] >= 'A' && nextCoord[0] <= 'H' && nextCoord[1] >= '1' && nextCoord[1] <= '8')
-				{
-					if (nextCoord[0] != currentCoord[0] || nextCoord[1] <= currentCoord[1] || (nextCoord[1] - currentCoord[1] != 1 && (currentCoord[1] != '2' || nextCoord[1] != '4')))
-						return false;
-					else
-						return true;
-				}
-				else return false;
-
-			}
-
-			else if (type == Type.ROOK)
-			{
-				if (nextCoord[0] >= 'A' && nextCoord[0] <= 'H' && nextCoord[1] >= '1' && nextCoord[1] <= '8')
-				{
-					if ((nextCoord[0] != currentCoord[0]) && (nextCoord[1] != currentCoord[1]) || ((nextCoord[0] == currentCoord[0]) && (nextCoord[1] == currentCoord[1])))
-						return false;
-					else
-						return true;
-
-				}
-				else return false;
-			}
-			else if (type == Type.KNIGHT)
-			{
-				if (nextCoord[0] >= 'A' && nextCoord[0] <= 'H' && nextCoord[1] >= '1' && nextCoord[1] <= '8')
-				{
-					int dx, dy;
-					dx = Math.Abs(nextCoord[0] - currentCoord[0]);
-					dy = Math.Abs(nextCoord[1] - currentCoord[1]);
-					if (!(Math.Abs(nextCoord[0] - currentCoord[0]) == 1 && Math.Abs(nextCoord[1] - currentCoord[1]) == 2 || Math.Abs(nextCoord[0] - currentCoord[0]) == 2 && Math.Abs(nextCoord[1] - currentCoord[1]) == 1))
-						return false;
-					else
-						return true;
-				}
-				else return false;
-			}
-
-			else if (type == Type.BISHOP)
-			{
-				if (nextCoord[0] >= 'A' && nextCoord[0] <= 'H' && nextCoord[1] >= '1' && nextCoord[1] <= '8')
-				{
-					if (!(Math.Abs(nextCoord[0] - currentCoord[0]) == Math.Abs(nextCoord[1] - currentCoord[1])))
-						return false;
-					else
-						return true;
-				}
-				else return false;
-			}
-
-			else if (type == Type.KING)
-			{
-				if (nextCoord[0] >= 'A' && nextCoord[0] <= 'H' && nextCoord[1] >= '1' && nextCoord[1] <= '8')
-				{
-					if (!(Math.Abs(nextCoord[0] - currentCoord[0]) <= 1 && Math.Abs(nextCoord[1] - currentCoord[1]) <= 1))
-						return false;
-					else
-						return true;
-				}
-				else return false;
-			}
-			else if (type == Type.QUEEN)
-			{
-				if (nextCoord[0] >= 'A' && nextCoord[0] <= 'H' && nextCoord[1] >= '1' && nextCoord[1] <= '8')
-				{
-					if (!(Math.Abs(nextCoord[0] - currentCoord[0]) == Math.Abs(nextCoord[1] - currentCoord[1]) || nextCoord[0] == currentCoord[0] || nextCoord[1] == currentCoord[1]))
-						return false;
-					else
-						return true;
-				}
-				else return false;
-			}
-			else
-				return false;
-		}
     }
 }
