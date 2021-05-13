@@ -4,15 +4,15 @@ namespace Chess.Models
 {
     internal class Bishop : ChessFigure
     {
-        public Bishop(string coord)
+        public Bishop(GameCoord coord)
             : base(coord)
         { }
 
-        internal override bool Move(string nextCoord)
+        internal override bool Move(string nextCoordStr)
         {
-            return nextCoord[0] >= 'A' && nextCoord[0] <= 'H' && nextCoord[1] >= '1' && nextCoord[1] <= '8'
-                ? Math.Abs(nextCoord[0] - _currentCoord[0]) == Math.Abs(nextCoord[1] - _currentCoord[1])
-                : false;
+            var nextCoord = new GameCoord(nextCoordStr);
+            return Math.Abs(nextCoord.Col - _currentCoord.Col)
+                == Math.Abs(nextCoord.Row - _currentCoord.Row);
         }
     }
 

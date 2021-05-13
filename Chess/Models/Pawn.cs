@@ -2,16 +2,15 @@
 {
     internal class Pawn : ChessFigure
     {
-        public Pawn(string coord)
+        public Pawn(GameCoord coord)
             : base(coord)
         { }
 
-        internal override bool Move(string nextCoord)
+        internal override bool Move(string nextCoordStr)
         {
-            return nextCoord[0] >= 'A' && nextCoord[0] <= 'H' && nextCoord[1] >= '1' && nextCoord[1] <= '8'
-                ? nextCoord[0] == _currentCoord[0] && nextCoord[1] > _currentCoord[1] &&
-                    (nextCoord[1] - _currentCoord[1] == 1 || _currentCoord[1] == '2' && nextCoord[1] == '4')
-                : false;
+            var nextCoord = new GameCoord(nextCoordStr);
+            return nextCoord.Col == _currentCoord.Col && nextCoord.Row > _currentCoord.Row
+                && (nextCoord.Row - _currentCoord.Row == 1 || _currentCoord.Row == '2' && nextCoord.Row == '4');
         }
     }
 }

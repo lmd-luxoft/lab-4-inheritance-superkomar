@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ChessFigure.cs" />
     <Compile Include="Models\Bishop.cs" />
+    <Compile Include="Models\GameCoord.cs" />
     <Compile Include="Models\King.cs" />
     <Compile Include="Models\Knight.cs" />
     <Compile Include="Models\Pawn.cs" />

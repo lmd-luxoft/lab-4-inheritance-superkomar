@@ -2,16 +2,15 @@
 {
     internal class Rook : ChessFigure
     {
-        public Rook(string coord)
+        public Rook(GameCoord coord)
             : base(coord)
         {}
 
-        internal override bool Move(string nextCoord)
+        internal override bool Move(string nextCoordStr)
         {
-            return nextCoord[0] >= 'A' && nextCoord[0] <= 'H' && nextCoord[1] >= '1' && nextCoord[1] <= '8'
-                ? (nextCoord[0] == _currentCoord[0] || nextCoord[1] == _currentCoord[1])
-                    && (nextCoord[0] != _currentCoord[0] || nextCoord[1] != _currentCoord[1])
-                : false;
+            var nextCoord = new GameCoord(nextCoordStr);
+            return (nextCoord.Col == _currentCoord.Col || nextCoord.Row == _currentCoord.Row)
+                && (nextCoord.Col != _currentCoord.Col || nextCoord.Row != _currentCoord.Row);
         }
     }
 }

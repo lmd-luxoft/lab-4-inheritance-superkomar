@@ -1,5 +1,7 @@
 ﻿// NUnit 3 tests
 // See documentation : https://github.com/nunit/docs/wiki/NUnit-Documentation
+using System;
+
 using Chess.Models;
 
 using NUnit.Framework;
@@ -9,6 +11,28 @@ namespace Chess
     [TestFixture]
     public class TestClass
     {
+        [Test]
+        [TestCase("L18")]
+        [TestCase("L0")]
+        [TestCase("0H")]
+        [TestCase("2E")]
+        public void FigureWithInvalidCoord(string coord)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => ChessFigure.ConstructByType(FigureType.ROOK, coord));
+        }
+
+        [Test]
+        [TestCase("L18")]
+        [TestCase("L0")]
+        [TestCase("0H")]
+        [TestCase("2E")]
+        public void FigureMoveToInvalidCoord(string coord)
+        {
+            ChessFigure figure = ChessFigure.ConstructByType(FigureType.ROOK, "E2");
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => figure.Move(coord));
+        }
+
         [Test]
         public void RookShouldBeCorrectMove()
         {

@@ -4,16 +4,15 @@ namespace Chess.Models
 {
     internal class Knight : ChessFigure
     {
-        public Knight(string coord)
+        public Knight(GameCoord coord)
             : base(coord)
         { }
 
-        internal override bool Move(string nextCoord)
+        internal override bool Move(string nextCoordStr)
         {
-            return nextCoord[0] >= 'A' && nextCoord[0] <= 'H' && nextCoord[1] >= '1' && nextCoord[1] <= '8'
-                ? Math.Abs(nextCoord[0] - _currentCoord[0]) == 1 && Math.Abs(nextCoord[1] - _currentCoord[1]) == 2
-                    || Math.Abs(nextCoord[0] - _currentCoord[0]) == 2 && Math.Abs(nextCoord[1] - _currentCoord[1]) == 1
-                : false;
+            var nextCoord = new GameCoord(nextCoordStr);
+            return Math.Abs(nextCoord.Col - _currentCoord.Col) == 1 && Math.Abs(nextCoord.Row - _currentCoord.Row) == 2
+                || Math.Abs(nextCoord.Col - _currentCoord.Col) == 2 && Math.Abs(nextCoord.Row - _currentCoord.Row) == 1;
         }
     }
 }
